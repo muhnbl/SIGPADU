@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin="">
+    </script>
+</head>
+<body>
+    <div id="map" style="height: 550px; margin-top: 5px"></div>
+
+    <script>
+        var depokLating = [-6.40, 106.79];
+        var mapOptions = {
+            center: depokLating,
+            zoom: 13
+        }
+        var map = L.map('map', mapOptions);
+
+        var tileLayer = new L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        });
+        tileLayer.addTo(map);
+
+        var marker = L.marker(depokLating).addTo(map);
+        marker.bindPopup("<b>Hello world!</b><br>Koordinat: " + marker.getLatLng());
+
+        function onClick(e) {
+        alert("Anda mengklik lokasi " + e.latlng);
+        }
+        map.on('click', onClick);
+
+        function onClick(e) {
+        var newMarker = L.marker(e.latlng);
+        newMarker.bindPopup("Location: " + e.latlng);
+        newMarker.addTo(map);
+        }
+        map.on('click', onClick);
+    </script>
+
+</body>
+</html>
